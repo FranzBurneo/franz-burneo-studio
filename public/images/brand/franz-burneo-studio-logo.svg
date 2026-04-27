@@ -1,0 +1,8 @@
+<svg width="760" height="180" viewBox="0 0 760 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="24" width="132" height="132" rx="34" fill="#0F172A"/>
+  <path d="M132 48L48 132" stroke="#2563EB" stroke-width="12" stroke-linecap="round"/>
+  <path d="M124 62L62 124" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+  <text x="47" y="111" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800" letter-spacing="-4">FB</text>
+  <text x="182" y="82" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Franz Burneo Studio</text>
+  <text x="184" y="126" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="500">Desarrollo web y software para negocios</text>
+</svg>
