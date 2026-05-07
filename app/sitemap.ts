@@ -9,8 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: `${SITE_URL}/en`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
-
-  // Cuando existan páginas reales como /servicios o /demos, agregarlas aquí.
-  // En esta one-page landing los anchors no se indexan como URLs independientes.
 }

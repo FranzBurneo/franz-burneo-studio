@@ -1,44 +1,17 @@
 import { ArrowRight, CheckCircle2, ExternalLink, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import type { SiteContent } from "@/content/site-content";
 import { contact } from "@/data/contact";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
-const trustItems = [
-  "Desarrollo responsive",
-  "Contacto por WhatsApp",
-  "Publicación en dominio propio",
-  "Soporte inicial incluido",
-];
-
-const productCards = [
-  {
-    title: "Landing para alojamiento",
-    detail: "Galería, ubicación, servicios y reservas",
-    cta: "Ver landing",
-    url: "https://stayloja.com/",
-    ariaLabel: "Ver demo de landing para alojamiento Stay Loja",
-  },
-  {
-    title: "Menú digital QR",
-    detail: "Categorías, productos y pedido por WhatsApp",
-    cta: "Ver menú",
-    url: "https://cafe-andino-six.vercel.app/",
-    ariaLabel: "Ver demo de menú digital QR Café Andino",
-  },
-  {
-    title: "Agenda online",
-    detail: "Citas, horarios y panel administrativo",
-    cta: "Ver agenda",
-    url: "https://reservapro-demo.vercel.app/",
-    ariaLabel: "Ver demo de agenda online ReservaPro",
-  },
-];
-
-export function HeroSection() {
-  const quoteUrl = generateWhatsAppUrl(
-    contact.phone,
-    contact.quoteWhatsAppMessage,
-  );
+export function HeroSection({
+  content,
+  quoteMessage,
+}: {
+  content: SiteContent["hero"];
+  quoteMessage: string;
+}) {
+  const quoteUrl = generateWhatsAppUrl(contact.phone, quoteMessage);
 
   return (
     <section
@@ -50,19 +23,13 @@ export function HeroSection() {
         <div className="flex flex-col justify-center">
           <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            Soluciones web para negocios en Ecuador
+            {content.badge}
           </div>
           <h1 className="max-w-4xl text-4xl font-bold leading-tight text-slate-950 sm:text-5xl lg:text-6xl">
-            Desarrollo páginas web y sistemas simples para que tu negocio venda
-            y se organice mejor
+            {content.title}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Creo landing pages, menús digitales, agendas online y sistemas web
-            para negocios que quieren captar clientes, recibir pedidos,
-            gestionar reservas por WhatsApp y mejorar su presencia digital.
-            Trabajo desarrollo web en Ecuador y Loja para páginas web para
-            negocios locales, menús digitales para restaurantes y sistemas web
-            personalizados.
+            {content.subtitle}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -73,19 +40,19 @@ export function HeroSection() {
               className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
             >
               <MessageCircle size={18} aria-hidden="true" />
-              Solicitar cotización
+              {content.quoteCta}
             </a>
             <Link
               href="#demos"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:border-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
             >
-              Ver demos
+              {content.demosCta}
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {trustItems.map((item) => (
+            {content.trustItems.map((item) => (
               <div key={item} className="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <CheckCircle2 size={18} className="text-emerald-500" aria-hidden="true" />
                 {item}
@@ -100,16 +67,16 @@ export function HeroSection() {
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
-                    Oferta digital
+                    {content.panelEyebrow}
                   </p>
-                  <p className="mt-1 text-lg font-bold">Soluciones para vender mejor</p>
+                  <p className="mt-1 text-lg font-bold">{content.panelTitle}</p>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-200">
-                  Ecuador
+                  {content.panelTag}
                 </div>
               </div>
               <div className="mt-5 space-y-3">
-                {productCards.map((card, index) => (
+                {content.products.map((card, index) => (
                   <a
                     key={card.title}
                     href={card.url}
@@ -139,8 +106,8 @@ export function HeroSection() {
             </div>
           </div>
           <div className="absolute -bottom-6 -left-4 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-xl sm:block">
-            <p className="text-sm font-bold text-slate-950">Desde una idea clara</p>
-            <p className="mt-1 text-sm text-slate-600">hasta una web publicada.</p>
+            <p className="text-sm font-bold text-slate-950">{content.noteTitle}</p>
+            <p className="mt-1 text-sm text-slate-600">{content.noteText}</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -43,6 +44,11 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   alternates: {
     canonical: "/",
+    languages: {
+      es: `${SITE_URL}/`,
+      en: `${SITE_URL}/en`,
+      "x-default": `${SITE_URL}/`,
+    },
   },
   robots: {
     index: true,
@@ -88,13 +94,17 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const pathname = headerList.get("x-current-pathname") || "/";
+  const lang = pathname.startsWith("/en") ? "en" : "es";
+
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={lang} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>{children}</body>
     </html>
   );

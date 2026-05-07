@@ -1,10 +1,9 @@
 import { contact } from "@/data/contact";
-import { faqs } from "@/data/faqs";
-import { services } from "@/data/services";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import type { SiteContent } from "@/content/site-content";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-export function JsonLd() {
-  const serviceCatalog = services.map((service) => ({
+export function JsonLd({ content }: { content: SiteContent }) {
+  const serviceCatalog = content.servicesSection.services.map((service) => ({
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
@@ -23,36 +22,35 @@ export function JsonLd() {
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: SITE_NAME,
-      url: SITE_URL,
-      description: SITE_DESCRIPTION,
-      inLanguage: "es-EC",
+      url: `${SITE_URL}${content.path === "/" ? "" : content.path}`,
+      description: content.metadata.description,
+      inLanguage: content.jsonLd.language,
     },
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       name: SITE_NAME,
-      url: SITE_URL,
+      url: `${SITE_URL}${content.path === "/" ? "" : content.path}`,
       email: contact.email,
       telephone: `+${contact.phone}`,
-      areaServed: "Ecuador",
+      areaServed: content.jsonLd.areaServed,
       address: {
         "@type": "PostalAddress",
         addressCountry: "EC",
         addressRegion: "Loja",
       },
-      description:
-        "Desarrollo páginas web, menús digitales, agendas online y sistemas personalizados para negocios en Ecuador.",
+      description: content.jsonLd.description,
       sameAs: [],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Servicios de desarrollo web y software",
+        name: content.jsonLd.catalogName,
         itemListElement: serviceCatalog,
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
+      mainEntity: content.faqSection.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: {

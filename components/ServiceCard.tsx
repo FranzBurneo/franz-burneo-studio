@@ -1,9 +1,9 @@
 import { ArrowUpRight, Check } from "lucide-react";
-import type { Service } from "@/types/service";
+import type { ServiceContent } from "@/content/site-content";
 import { contact } from "@/data/contact";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({ service }: { service: ServiceContent }) {
   const url = generateWhatsAppUrl(contact.phone, service.whatsappMessage);
 
   return (

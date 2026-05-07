@@ -2,19 +2,19 @@
 
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { faqs } from "@/data/faqs";
+import type { SiteContent } from "@/content/site-content";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "./SectionHeader";
 
-export function FaqSection() {
+export function FaqSection({ content }: { content: SiteContent["faqSection"] }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader title="Preguntas frecuentes" />
+        <SectionHeader title={content.title} />
         <div className="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
-          {faqs.map((faq, index) => {
+          {content.faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div key={faq.question}>

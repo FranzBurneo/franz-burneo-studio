@@ -1,19 +1,31 @@
 import Link from "next/link";
+import type { Locale, SiteContent } from "@/content/site-content";
 import { contact } from "@/data/contact";
 import { generateWhatsAppUrl } from "@/lib/whatsapp";
 
-const quickLinks = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Demos", href: "#demos" },
-  { label: "Precios", href: "#precios" },
-  { label: "Contacto", href: "#contacto" },
-];
+type FooterProps = {
+  content: SiteContent["footer"];
+  locale: Locale;
+  mainMessage: string;
+};
 
-export function Footer() {
-  const whatsappUrl = generateWhatsAppUrl(
-    contact.phone,
-    contact.mainWhatsAppMessage,
-  );
+const quickLinkMap = {
+  es: [
+    { label: "Servicios", href: "#servicios" },
+    { label: "Demos", href: "#demos" },
+    { label: "Precios", href: "#precios" },
+    { label: "Contacto", href: "#contacto" },
+  ],
+  en: [
+    { label: "Services", href: "/en#servicios" },
+    { label: "Demos", href: "/en#demos" },
+    { label: "Pricing", href: "/en#precios" },
+    { label: "Contact", href: "/en#contacto" },
+  ],
+};
+
+export function Footer({ content, locale, mainMessage }: FooterProps) {
+  const whatsappUrl = generateWhatsAppUrl(contact.phone, mainMessage);
 
   return (
     <footer className="bg-white">
@@ -21,13 +33,13 @@ export function Footer() {
         <div>
           <p className="text-lg font-bold text-slate-950">Franz Burneo Studio</p>
           <p className="mt-2 max-w-sm text-sm leading-6 text-slate-600">
-            Desarrollo web y software para negocios
+            {content.tagline}
           </p>
         </div>
         <div>
-          <p className="text-sm font-bold text-slate-950">Links rápidos</p>
+          <p className="text-sm font-bold text-slate-950">{content.quickLinksTitle}</p>
           <div className="mt-3 flex flex-col gap-2">
-            {quickLinks.map((link) => (
+            {quickLinkMap[locale].map((link) => (
               <Link key={link.href} href={link.href} className="text-sm text-slate-600 hover:text-blue-600">
                 {link.label}
               </Link>
@@ -35,7 +47,7 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <p className="text-sm font-bold text-slate-950">Contacto</p>
+          <p className="text-sm font-bold text-slate-950">{content.contactTitle}</p>
           <div className="mt-3 flex flex-col gap-2 text-sm text-slate-600">
             <a href={whatsappUrl} target="_blank" rel="noreferrer" className="hover:text-blue-600">
               WhatsApp: {contact.phoneDisplay}
@@ -47,7 +59,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-slate-200 py-5 text-center text-sm text-slate-500">
-        © 2026 Franz Burneo Studio. Todos los derechos reservados.
+        {content.rights}
       </div>
     </footer>
   );

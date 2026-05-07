@@ -3,7 +3,7 @@ import { LandingPage } from "@/components/LandingPage";
 import { siteContent } from "@/content/site-content";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const content = siteContent.es;
+const content = siteContent.en;
 
 export const metadata: Metadata = {
   title: {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: content.metadata.description,
   keywords: content.metadata.keywords,
   alternates: {
-    canonical: "/",
+    canonical: "/en",
     languages: {
       es: `${SITE_URL}/`,
       en: `${SITE_URL}/en`,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: content.metadata.title,
     description: content.metadata.description,
-    url: `${SITE_URL}/`,
+    url: `${SITE_URL}/en`,
     siteName: SITE_NAME,
     locale: content.metadata.ogLocale,
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} - Desarrollo web y software para negocios`,
+        alt: `${SITE_NAME} - Web development and software for businesses`,
       },
     ],
   },
@@ -43,6 +43,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
-  return <LandingPage content={content} locale="es" />;
+export default function EnglishHome() {
+  return <LandingPage content={content} locale="en" />;
 }
